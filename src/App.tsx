@@ -1,8 +1,11 @@
 import React from 'react'
+import Feature from './components/Featrure'
 
-const App = () => {
+const App:React.FC = () => {
   return (
-    <div>App</div>
+    <div>
+      <Feature/>
+    </div>
   )
 }
 
