@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 // import image_file from "./photo.jpg"
 
 const API_BASE_URL="https://clipdrop-api.co";
@@ -11,7 +11,7 @@ const Reimage="/reimagine/v1/reimagine";
 
 
 const API_KEY =
-  "2b99e716da1abf3953fced075f4e60daff002eaf854e144307a5aeab2195b110d08b4f0fdfefb71918fc4ba88f2f5acf";
+  "25f09a4222c9ce22dd039bbe500e8992568521ec7d3963fa273d650ca76187dc7dba720fbdaf6b5e346059b537576402";
 
 
   const feturesOption=[
@@ -43,7 +43,8 @@ const Feature:React.FC = () => {
   const [promtText,setPromtText]=useState("")
   const [imageSRC,setImageSRC]=useState("")
   const [loading, setLoading] = useState(false);
-
+  
+  let inputRef=useRef<any>(null)
 
   const fileHandleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files;
@@ -54,7 +55,11 @@ const Feature:React.FC = () => {
 
   const onSelectHandler=(e: React.ChangeEvent<HTMLSelectElement>)=>{
      if(e.target.value!==""){
+        setimageList([])
+        setImageSRC("")
+        inputRef.current.value = "";
         setOnSelectData(e.target.value);
+       
      }
   }
 
@@ -153,6 +158,7 @@ const Feature:React.FC = () => {
           style={{ width: 300 }}
           className="form-control"
           type="file"
+          ref={inputRef}
           disabled={onSelectData==="" || onSelectData==="textToImage"}
           onChange={(e) => fileHandleChange(e)}
         />
